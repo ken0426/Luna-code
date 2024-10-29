@@ -48,8 +48,6 @@ const LoginForm = () => {
   };
 
   const onSubmit = (data: SignUpSchemaType | LoginSchemaType) => {
-    console.log(isSignUp);
-
     isSignUp
       ? createUserApi(data as SignUpSchemaType)
       : loginUserApi(data as LoginSchemaType);
