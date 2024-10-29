@@ -47,10 +47,10 @@ const LoginForm = () => {
     );
   };
 
-  const onSubmit = (data: SignUpSchemaType | LoginSchemaType) => {
+  const onSubmit = async (data: SignUpSchemaType | LoginSchemaType) => {
     isSignUp
-      ? createUserApi(data as SignUpSchemaType)
-      : loginUserApi(data as LoginSchemaType);
+      ? await createUserApi(data as SignUpSchemaType)
+      : await loginUserApi(data as LoginSchemaType);
     reset();
   };
 
