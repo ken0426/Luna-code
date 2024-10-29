@@ -30,7 +30,7 @@ export const createUserApi = async (data: SignUpSchemaType) => {
       },
       { merge: true },
     );
-  } catch (error) {
+  } catch {
     throw new Error('user作成中にエラーが発生しました。');
   }
 };
