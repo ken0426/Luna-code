@@ -1,0 +1,6 @@
+.contents {
+  width: 60%;
+  margin: 0 auto;
+  height: 100vh;
+  background-color: var(--background-color);
+}
