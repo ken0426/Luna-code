@@ -6,4 +6,5 @@ export enum COLORS {
   INVALID = '#4b4b4b',
   INVALID_TEXT = '#838383',
   LINK = '#40aef8',
+  ERROR = '#ff0000',
 }

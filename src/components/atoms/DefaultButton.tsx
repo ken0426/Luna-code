@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { ButtonHTMLAttributes, FC } from 'react';
 
 import { COLORS } from '@/styles';
 
@@ -9,6 +9,7 @@ type Props = {
   buttonColor?: COLORS;
   textColor?: COLORS;
   disabled?: boolean;
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
 };
 
 const DefaultButton: FC<Props> = ({
@@ -16,9 +17,11 @@ const DefaultButton: FC<Props> = ({
   buttonColor = COLORS.BLUE,
   textColor = COLORS.WHITE,
   disabled = false,
+  type,
 }) => {
   return (
     <button
+      type={type}
       className={disabled ? style.disabledButton : style.button}
       style={{ backgroundColor: buttonColor, color: textColor }}
       disabled={disabled}

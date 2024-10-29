@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 
 import { COLORS } from '@/styles';
 
@@ -6,13 +6,13 @@ import style from '../../styles/button/textLink.module.css';
 
 type Props = {
   text: string;
-  onClick: () => void;
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
 const TextLink: FC<Props> = ({ text, onClick }) => {
   return (
     <button
-      onClick={onClick}
+      onClick={(e) => onClick(e)}
       className={style.button}
       style={{ color: COLORS.WHITE }}
     >

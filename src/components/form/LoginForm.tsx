@@ -1,20 +1,41 @@
 'use client';
 
-import { FormEvent, MouseEvent, useState } from 'react';
+import { MouseEvent, useState } from 'react';
+import { UseFormRegister, useForm } from 'react-hook-form';
 
-import { COLORS } from '@/styles';
+import {
+  DEFAULT_LOGIN_VALUE,
+  DEFAULT_SIGN_UP_VALUE,
+  LoginSchemaType,
+  SignUpSchemaType,
+  getLoginSchema,
+} from '@/schema/login';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import DefaultButton from '@/components/atoms/DefaultButton';
 import TextLink from '@/components/atoms/TextLink';
 import Login from '@/components/molecules/Login';
 import SignUp from '@/components/molecules/SignUp';
 
+import { COLORS } from '@/styles/index';
 import style from '@/styles/login/loginArea.module.css';
 
 const LoginForm = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isTermsLinkClicked, setIsTermsLinkClicked] = useState(false);
+  const {
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors },
+  } = useForm<SignUpSchemaType | LoginSchemaType>({
+    defaultValues: isSignUp ? DEFAULT_SIGN_UP_VALUE : DEFAULT_LOGIN_VALUE,
+    reValidateMode: 'onChange',
+    resolver: zodResolver(getLoginSchema(isSignUp)),
+  });
+
+  console.log('errors', errors);
 
   const onCheckBox = () => setIsChecked(!isChecked);
 
@@ -27,13 +48,23 @@ const LoginForm = () => {
     );
   };
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit = (data: LoginSchemaType) => {
+    console.log('data', data);
   };
 
   return (
-    <form onSubmit={onSubmit} className={style.loginArea}>
-      {isSignUp ? <SignUp /> : <Login />}
+    <form onSubmit={handleSubmit(onSubmit)} className={style.loginArea}>
+      {isSignUp ? (
+        <SignUp
+          register={register as UseFormRegister<SignUpSchemaType>}
+          errors={errors}
+        />
+      ) : (
+        <Login
+          register={register as UseFormRegister<LoginSchemaType>}
+          errors={errors}
+        />
+      )}
       <div className={style.buttonArea}>
         {isSignUp && (
           <label htmlFor="termsCheckbox" className={style.label}>
@@ -65,12 +96,17 @@ const LoginForm = () => {
               : COLORS.WHITE
           }
           disabled={isSignUp ? !isChecked : undefined}
+          type={'submit'}
         />
       </div>
       <div className={style.textLinkArea}>
         <TextLink
           text={isSignUp ? 'ログインはこちら' : '新規登録はこちら'}
-          onClick={() => setIsSignUp(!isSignUp)}
+          onClick={(e) => {
+            e.preventDefault();
+            reset(isSignUp ? DEFAULT_LOGIN_VALUE : DEFAULT_SIGN_UP_VALUE);
+            setIsSignUp(!isSignUp);
+          }}
         />
       </div>
     </form>

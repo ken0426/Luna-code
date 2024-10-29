@@ -4,6 +4,7 @@
   margin: 0 auto;
   height: 100vh;
   background-color: var(--background-color);
+  overflow: auto;
 }
 
 @media (max-width: 768px) {
