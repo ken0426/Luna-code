@@ -3,6 +3,7 @@
 import { MouseEvent, useState } from 'react';
 import { UseFormRegister, useForm } from 'react-hook-form';
 
+import { createUserApi, loginUserApi } from '@/api/users';
 import {
   DEFAULT_LOGIN_VALUE,
   DEFAULT_SIGN_UP_VALUE,
@@ -46,7 +47,14 @@ const LoginForm = () => {
     );
   };
 
-  const onSubmit = (data: LoginSchemaType) => {};
+  const onSubmit = (data: SignUpSchemaType | LoginSchemaType) => {
+    console.log(isSignUp);
+
+    isSignUp
+      ? createUserApi(data as SignUpSchemaType)
+      : loginUserApi(data as LoginSchemaType);
+    reset();
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={style.loginArea}>

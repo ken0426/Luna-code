@@ -6,6 +6,8 @@
     "^react",
     "^next",
     "<THIRD_PARTY_MODULES>",
+    "^@/env/(.*)$",
+    "^@/firebase/(.*)$",
     "^@/components/(.*)$",
     "^@/contents/(.*)$",
     "^@/styles/(.*)$",
