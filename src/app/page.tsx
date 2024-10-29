@@ -1,10 +1,10 @@
-import MainArea from '@/components/molecules/MainArea';
-import LoginArea from '@/components/screens/login/LoginArea';
+import LoginForm from '@/components/form/LoginForm';
+import MainArea from '@/components/layout/MainArea';
 
 export default function Home() {
   return (
     <MainArea>
-      <LoginArea />
+      <LoginForm />
     </MainArea>
   );
 }

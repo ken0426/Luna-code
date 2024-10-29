@@ -6,12 +6,12 @@ import { COLORS } from '@/styles';
 
 import DefaultButton from '@/components/atoms/DefaultButton';
 import TextLink from '@/components/atoms/TextLink';
-import Login from '@/components/form/Login';
-import SignUp from '@/components/form/SignUp';
+import Login from '@/components/molecules/Login';
+import SignUp from '@/components/molecules/SignUp';
 
 import style from '@/styles/login/loginArea.module.css';
 
-const LoginArea = () => {
+const LoginForm = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isTermsLinkClicked, setIsTermsLinkClicked] = useState(false);
@@ -77,4 +77,4 @@ const LoginArea = () => {
   );
 };
 
-export default LoginArea;
+export default LoginForm;
