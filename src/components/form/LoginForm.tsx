@@ -35,8 +35,6 @@ const LoginForm = () => {
     resolver: zodResolver(getLoginSchema(isSignUp)),
   });
 
-  console.log('errors', errors);
-
   const onCheckBox = () => setIsChecked(!isChecked);
 
   const onTermsLinkClick = (e: MouseEvent<HTMLAnchorElement>) => {
@@ -48,9 +46,7 @@ const LoginForm = () => {
     );
   };
 
-  const onSubmit = (data: LoginSchemaType) => {
-    console.log('data', data);
-  };
+  const onSubmit = (data: LoginSchemaType) => {};
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={style.loginArea}>
