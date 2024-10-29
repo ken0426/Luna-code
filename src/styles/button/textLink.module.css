@@ -1,0 +1,8 @@
+.button {
+  font-size: 15px;
+  color: var(--color);
+}
+
+.button:hover {
+  border-bottom: 1px solid white;
+}

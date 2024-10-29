@@ -1,0 +1,27 @@
+.disabledButton {
+  background-color: var(--background-color);
+  color: var(--color);
+  display: block;
+  border-radius: 50px;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: bold;
+  cursor: not-allowed;
+}
+
+.button {
+  background-color: var(--background-color);
+  color: var(--color);
+  display: block;
+  border-radius: 50px;
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.button:hover {
+  opacity: 0.8;
+}

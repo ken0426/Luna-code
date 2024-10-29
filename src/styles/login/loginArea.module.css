@@ -1,0 +1,36 @@
+.loginArea {
+  padding: 100px;
+  display: grid;
+  gap: 10px;
+}
+
+.label {
+  display: inline-flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.messageText {
+  color: var(--color);
+  font-size: 15px;
+  display: block;
+}
+
+.link {
+  color: var(--color);
+}
+
+.buttonArea {
+  margin-top: 30px;
+  width: 100%;
+  display: grid;
+  gap: 10px;
+}
+
+.textLinkArea {
+  margin: 0 auto;
+  margin-top: 30px;
+}

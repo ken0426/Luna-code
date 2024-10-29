@@ -1,14 +1,10 @@
-import { CSSProperties } from 'react';
-
-import { COLORS } from '@/styles';
-
-import styles from '../styles/login/login.module.css';
+import MainArea from '@/components/molecules/MainArea';
+import LoginArea from '@/components/screens/login/LoginArea';
 
 export default function Home() {
   return (
-    <div
-      className={styles.contents}
-      style={{ '--background-color': COLORS.GRAY } as CSSProperties}
-    ></div>
+    <MainArea>
+      <LoginArea />
+    </MainArea>
   );
 }

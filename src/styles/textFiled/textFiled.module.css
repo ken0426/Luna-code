@@ -1,0 +1,20 @@
+.inputArea {
+  gap: 10px;
+  display: grid;
+}
+
+.label {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--color);
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  display: block;
+  font-size: 18px;
+  padding: 0 10px;
+}
