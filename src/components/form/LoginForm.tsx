@@ -48,9 +48,11 @@ const LoginForm = () => {
   };
 
   const onSubmit = async (data: SignUpSchemaType | LoginSchemaType) => {
-    isSignUp
-      ? await createUserApi(data as SignUpSchemaType)
-      : await loginUserApi(data as LoginSchemaType);
+    if (isSignUp) {
+      await createUserApi(data as SignUpSchemaType);
+    } else {
+      await loginUserApi(data as LoginSchemaType);
+    }
     reset();
   };
 
