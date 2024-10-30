@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --background-color: #262626;
+}
+
 input[type='date']::-webkit-calendar-picker-indicator {
   position: absolute;
   width: 100%;

@@ -3,6 +3,8 @@
 import { MouseEvent, useState } from 'react';
 import { UseFormRegister, useForm } from 'react-hook-form';
 
+import { useRouter } from 'next/navigation';
+
 import { createUserApi, loginUserApi } from '@/api/users';
 import {
   DEFAULT_LOGIN_VALUE,
@@ -22,6 +24,7 @@ import { COLORS } from '@/styles/index';
 import style from '@/styles/login/loginArea.module.css';
 
 const LoginForm = () => {
+  const router = useRouter();
   const [isSignUp, setIsSignUp] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isTermsLinkClicked, setIsTermsLinkClicked] = useState(false);
@@ -54,6 +57,7 @@ const LoginForm = () => {
       await loginUserApi(data as LoginSchemaType);
     }
     reset();
+    router.push('/home');
   };
 
   return (
