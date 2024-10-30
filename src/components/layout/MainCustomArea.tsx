@@ -8,7 +8,7 @@ const MainCustomArea: FC<RNChildren> = ({ children }) => {
   return (
     <div className={styles.area}>
       <header className={styles.header}></header>
-      <main className={styles.main}></main>
+      <main className={styles.main}>{children}</main>
       <footer className={styles.footer}></footer>
     </div>
   );
