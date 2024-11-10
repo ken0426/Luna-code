@@ -39,3 +39,18 @@
   border-radius: 50px;
   font-weight: bold;
 }
+
+@media screen and (max-width: 768px) {
+  .modal {
+    width: 80%;
+  }
+  .text {
+    font-size: 15px;
+  }
+  .subText {
+    font-size: 10px;
+  }
+  .button {
+    padding: 10px 5px;
+  }
+}

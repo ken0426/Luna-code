@@ -1,5 +1,6 @@
 import { FC, useContext } from 'react';
 
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 import { PostContext } from '@/provider/PostProvider';
@@ -24,6 +25,14 @@ const MainCustomArea: FC<RNChildren> = ({ children }) => {
             >
               ホーム
             </li>
+            <Image
+              onClick={() => router.push('/settings')}
+              src={'/setting.png'}
+              alt={'setting-log'}
+              width={30}
+              height={30}
+              className={styles.tabletIcon}
+            />
             <li
               onClick={() => setIsPostModal(true)}
               style={{ color: COLORS.WHITE }}
@@ -31,6 +40,14 @@ const MainCustomArea: FC<RNChildren> = ({ children }) => {
             >
               投稿する
             </li>
+            <Image
+              onClick={() => router.push('/home')}
+              src={'/home.png'}
+              alt={'home-log'}
+              width={30}
+              height={30}
+              className={styles.tabletIcon}
+            />
             <li
               onClick={() => router.push('/settings')}
               style={{ color: COLORS.WHITE }}
@@ -38,11 +55,50 @@ const MainCustomArea: FC<RNChildren> = ({ children }) => {
             >
               設定
             </li>
+            <Image
+              onClick={() => setIsPostModal(true)}
+              src={'/pen.png'}
+              alt={'post-log'}
+              width={30}
+              height={30}
+              className={styles.tabletIcon}
+            />
           </ul>
         </nav>
       </header>
       <main className={styles.main}>{children}</main>
-      <footer className={styles.footer}></footer>
+      <footer className={styles.footer}>
+        <ul className={styles.footerBottom}>
+          <li>
+            <Image
+              onClick={() => router.push('/settings')}
+              src={'/setting.png'}
+              alt={'setting-log'}
+              width={30}
+              height={30}
+            />
+          </li>
+          <li>
+            <Image
+              onClick={() => router.push('/home')}
+              src={'/home.png'}
+              alt={'home-log'}
+              width={30}
+              height={30}
+            />
+          </li>
+
+          <li>
+            <Image
+              onClick={() => setIsPostModal(true)}
+              src={'/pen.png'}
+              alt={'post-log'}
+              width={30}
+              height={30}
+            />
+          </li>
+        </ul>
+      </footer>
     </div>
   );
 };

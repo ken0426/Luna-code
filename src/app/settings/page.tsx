@@ -17,6 +17,7 @@ const Page = () => {
   const [selectedList, setSelectedList] = useState<number>(0);
   const { setIsLogoutModal } = useContext(PostContext);
   const { userProfile } = useContext(AuthContext);
+  const [isList, setIsList] = useState(true);
 
   const settingsList = [
     { text: 'アカウント' },
@@ -100,6 +101,102 @@ const Page = () => {
               >
                 ログアウト
               </button>
+            </div>
+          )}
+        </div>
+
+        {/* ======= モバイル版 ======= */}
+        <div className={style.mobileBar}>
+          <header style={{ color: COLORS.WHITE }} className={style.header}>
+            <span
+              onClick={() => setIsList(true)}
+              style={{ opacity: isList ? 0 : 1 }}
+              className={style.headerLeftButton}
+            >
+              ＜
+            </span>
+            設定
+            <span className={style.headerRightBlock}>＜</span>
+          </header>
+          {isList ? (
+            <ul>
+              {settingsList.map((list, index) => (
+                <li
+                  key={index}
+                  style={{ color: COLORS.WHITE }}
+                  className={style.listNotSelectedItem}
+                  onClick={() => {
+                    setIsList(false);
+                    setSelectedList(index);
+                  }}
+                >
+                  <span>{list.text}</span>
+                  <span>＞</span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div>
+              {selectedList === 0 && (
+                <div className={style.mobilSideContainer}>
+                  <p style={{ color: COLORS.WHITE }} className={style.title}>
+                    アカウント情報
+                  </p>
+                  <ul className={style.userContainer}>
+                    <UserFiled
+                      label={'ユーザー名'}
+                      userText={userProfile.userName}
+                    />
+                    <UserFiled
+                      label={'メールアドレス'}
+                      userText={userProfile.email}
+                    />
+                    <UserFiled
+                      label={'性別'}
+                      userText={
+                        userProfile.sex === 'man'
+                          ? '男性'
+                          : userProfile.sex === 'woman'
+                            ? '女性'
+                            : ''
+                      }
+                    />
+                  </ul>
+                </div>
+              )}
+              {selectedList === 1 && (
+                <div className={style.mobilSideContainer}>
+                  <p style={{ color: COLORS.WHITE }} className={style.title}>
+                    利用規約
+                  </p>
+                  <Link
+                    target="_blank"
+                    href={
+                      'https://luna-matching.notion.site/a714620bbd8740d1ac98f2326fbd0bbc'
+                    }
+                    style={{ color: COLORS.WHITE, textAlign: 'center' }}
+                  >
+                    利用規約はこちら
+                  </Link>
+                </div>
+              )}
+              {selectedList === 2 && (
+                <div className={style.sideLogoutContainer}>
+                  <p style={{ color: COLORS.WHITE }} className={style.logout}>
+                    ログアウトしますか？{' '}
+                  </p>
+                  <button
+                    style={{
+                      color: COLORS.WHITE,
+                      backgroundColor: COLORS.ERROR,
+                    }}
+                    className={style.logoutButton}
+                    onClick={() => setIsLogoutModal(true)}
+                  >
+                    ログアウト
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>

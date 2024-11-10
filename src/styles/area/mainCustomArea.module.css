@@ -26,6 +26,10 @@
   background-color: rgba(44, 44, 44, 0.5);
 }
 
+.tabletIcon {
+  display: none;
+}
+
 .main {
   width: 60%;
   background-color: var(--background-color);
@@ -35,4 +39,59 @@
 .footer {
   width: 20%;
   border-left: 0.3px solid;
+}
+
+.footerBottom {
+  display: none;
+}
+
+@media screen and (max-width: 1070px) {
+  .header {
+    display: grid;
+    justify-content: end;
+  }
+  .nav {
+    display: flex;
+    align-items: flex-start;
+    padding-right: 20px;
+  }
+  .navItem {
+    display: none;
+  }
+  .footerBottom {
+    display: none;
+  }
+  .tabletIcon {
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .area {
+    display: block;
+  }
+  .header {
+    width: 0%;
+    padding: 0px;
+  }
+  .main {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 0px;
+  }
+  .footer {
+    width: 0%;
+  }
+  .footerBottom {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-color: black;
+    justify-content: space-around;
+    align-items: center;
+  }
 }

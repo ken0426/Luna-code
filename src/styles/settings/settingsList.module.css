@@ -93,3 +93,72 @@
   display: block;
   font-weight: bold;
 }
+
+.mobileBar {
+  display: none;
+}
+
+@media screen and (max-width: 1070px) {
+  .listContainer {
+    width: 35%;
+  }
+  .contentContainer {
+    margin: 0 auto;
+  }
+  .title {
+    font-size: 20px;
+  }
+  .logout {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .mobileBar {
+    display: block;
+  }
+  .header {
+    color: var(--color);
+    text-align: center;
+    font-size: 30px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .headerLeftButton {
+    display: block;
+    font-size: 20px;
+  }
+  .headerRightBlock {
+    display: block;
+    opacity: 0;
+  }
+  .listArea {
+    width: 100%;
+    display: block;
+  }
+  .contentContainer {
+    display: none;
+  }
+  .listContainer {
+    display: none;
+  }
+  .sideContainer {
+    display: none;
+  }
+  .mobileBar {
+    width: 100%;
+    height: 100%;
+  }
+  .mobilSideContainer {
+    padding: 10px;
+    display: grid;
+    gap: 10px;
+    align-items: center;
+  }
+  .userContainer {
+    display: grid;
+    width: 100%;
+    gap: 10px;
+  }
+}

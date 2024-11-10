@@ -38,9 +38,15 @@ const PostModal = () => {
     reset();
   };
 
+  const onClose = () => {
+    reset();
+    setText('');
+    setIsPostModal(false);
+  };
+
   return (
     <div
-      onClick={() => setIsPostModal(false)}
+      onClick={onClose}
       style={{ display: isPostModal ? 'block' : 'none' }}
       className={style.background}
     >
@@ -56,7 +62,7 @@ const PostModal = () => {
       >
         <header>
           <button
-            onClick={() => setIsPostModal(false)}
+            onClick={onClose}
             style={{ color: COLORS.WHITE }}
             className={style.closeButton}
           >
@@ -90,10 +96,15 @@ const PostModal = () => {
             <button
               type="submit"
               style={{
-                color: text.length <= 140 ? COLORS.WHITE : COLORS.GRAY,
+                color:
+                  text.length > 0 && text.length <= 140
+                    ? COLORS.WHITE
+                    : COLORS.GRAY,
               }}
               className={
-                text.length <= 140 ? style.postButton : style.disabledButton
+                text.length > 0 && text.length <= 140
+                  ? style.postButton
+                  : style.disabledButton
               }
             >
               投稿する
