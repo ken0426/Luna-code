@@ -49,7 +49,7 @@ const Page = () => {
             <span onClick={() => router.back()} className={style.backArrow}>
               ←
             </span>
-            　戻る
+            戻る
           </button>
 
           {userProfile.uid === postDat.userId ? (
@@ -58,7 +58,7 @@ const Page = () => {
         </header>
         <div className={style.card}>
           <p style={{ color: COLORS.WHITE }} className={style.userName}>
-            {userProfile.userName}
+            {postDat.userName}
           </p>
           <p style={{ color: COLORS.WHITE }} className={style.postText}>
             {postDat.text.split('\n').map((line, index) => (
