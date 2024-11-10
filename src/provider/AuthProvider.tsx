@@ -35,7 +35,7 @@ const defaultValue = {
     sex: '',
   },
   authErrorModal: null,
-  setAuthErrorModal: (authErrorModal: null | string) => {},
+  setAuthErrorModal: () => {},
 };
 
 export const AuthContext = createContext<AuthState>(defaultValue);
