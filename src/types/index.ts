@@ -11,4 +11,5 @@ export type Posts = {
   createdAt: Timestamp;
   id: string;
   userId: string;
+  userName: string;
 };

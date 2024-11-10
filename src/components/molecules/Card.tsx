@@ -5,21 +5,20 @@ import { useRouter } from 'next/navigation';
 import { AuthContext } from '@/provider/AuthProvider';
 import { COLORS } from '@/styles';
 
-import Loading from '@/components/atoms/Loading';
-
 import style from '@/styles/card/card.module.css';
 
 type Props = {
   id: string;
   text: string;
   date: string;
+  userName: string;
 };
 
-const Card: FC<Props> = ({ id, text, date }) => {
+const Card: FC<Props> = ({ id, text, date, userName }) => {
   const { userProfile } = useContext(AuthContext);
   const router = useRouter();
 
-  return userProfile ? (
+  return (
     <div
       key={id}
       className={style.card}
@@ -27,7 +26,7 @@ const Card: FC<Props> = ({ id, text, date }) => {
     >
       <div className={style.flex}>
         <p style={{ color: COLORS.WHITE }} className={style.userName}>
-          {userProfile?.userName}
+          {userName}
         </p>
         <p style={{ color: COLORS.WHITE }} className={style.date}>
           {`投稿日：${date}`}
@@ -42,8 +41,6 @@ const Card: FC<Props> = ({ id, text, date }) => {
         ))}
       </p>
     </div>
-  ) : (
-    <Loading />
   );
 };
 
