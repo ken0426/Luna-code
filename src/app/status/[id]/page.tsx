@@ -38,8 +38,8 @@ const Page = () => {
       }
     };
 
-    fetchPostData(); // 非同期関数を呼び出す
-  }, [statusString]);
+    fetchPostData();
+  }, [statusString, router]);
 
   return userProfile && postDat ? (
     <MainCustomArea>
