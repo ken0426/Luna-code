@@ -16,6 +16,7 @@ import {
   query,
 } from 'firebase/firestore';
 
+import TextCenter from '@/components/atoms/TextCenter';
 import MainCustomArea from '@/components/layout/MainCustomArea';
 import Card from '@/components/molecules/Card';
 
@@ -61,15 +62,19 @@ const Page = () => {
 
   return (
     <MainCustomArea>
-      {sortPost.map((post) => (
-        <Card
-          key={post.id}
-          id={post.id}
-          text={post.text}
-          userName={post.userName}
-          date={dateFormat(post.createdAt.toDate())}
-        />
-      ))}
+      {sortPost.length ? (
+        sortPost.map((post) => (
+          <Card
+            key={post.id}
+            id={post.id}
+            text={post.text}
+            userName={post.userName}
+            date={dateFormat(post.createdAt.toDate())}
+          />
+        ))
+      ) : (
+        <TextCenter />
+      )}
     </MainCustomArea>
   );
 };
