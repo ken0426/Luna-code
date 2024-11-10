@@ -6,6 +6,24 @@
 .header {
   width: 20%;
   border-right: 0.3px solid;
+  padding: 50px 10px 50px 80px;
+}
+
+.nav {
+  align-items: end;
+}
+
+.navItem {
+  color: var(--color);
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 50px;
+}
+
+.navItem:hover {
+  background-color: rgba(44, 44, 44, 0.5);
 }
 
 .main {
