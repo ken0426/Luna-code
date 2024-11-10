@@ -79,15 +79,22 @@ const PostModal = () => {
         </div>
         <footer className={style.footer}>
           <div className={style.footerArea}>
-            <span style={{ color: COLORS.WHITE }} className={style.countText}>
-              {text.length}/3000
+            <span
+              style={{
+                color: text.length > 140 ? COLORS.ERROR : COLORS.WHITE,
+              }}
+              className={style.countText}
+            >
+              {text.length}/140
             </span>
             <button
               type="submit"
               style={{
-                color: text.length ? COLORS.WHITE : COLORS.GRAY,
+                color: text.length <= 140 ? COLORS.WHITE : COLORS.GRAY,
               }}
-              className={text.length ? style.postButton : style.disabledButton}
+              className={
+                text.length <= 140 ? style.postButton : style.disabledButton
+              }
             >
               投稿する
             </button>

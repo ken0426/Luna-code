@@ -26,4 +26,6 @@
 .post {
   color: var(--color);
   font-size: 15px;
+  word-wrap: break-word;
+  word-break: break-all;
 }
