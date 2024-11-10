@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import { db } from '@/firebase';
 import { AuthContext } from '@/provider/AuthProvider';
+import { PostContext } from '@/provider/PostProvider';
 import { COLORS } from '@/styles';
 import { Posts } from '@/types';
 import { dateFormat } from '@/utils';
@@ -18,6 +19,7 @@ import style from '@/styles/status/status.module.css';
 const Page = () => {
   const router = useRouter();
   const { userProfile } = useContext(AuthContext);
+  const { setIsPostDeleteModal } = useContext(PostContext);
   const [postDat, setPostData] = useState<null | Posts>(null);
   const pathname = usePathname();
   const statusString = pathname.split('/status/')[1];
@@ -39,8 +41,6 @@ const Page = () => {
     fetchPostData(); // 非同期関数を呼び出す
   }, [statusString]);
 
-  console.log(postDat);
-
   return userProfile && postDat ? (
     <MainCustomArea>
       <div className={style.container}>
@@ -53,7 +53,7 @@ const Page = () => {
           </button>
 
           {userProfile.uid === postDat.userId ? (
-            <button>削除する</button>
+            <button onClick={() => setIsPostDeleteModal(true)}>削除する</button>
           ) : null}
         </header>
         <div className={style.card}>
