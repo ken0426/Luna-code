@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
+import AuthProvider from '@/provider/AuthProvider';
 import { COLORS } from '@/styles';
 
 import './globals.css';
@@ -32,7 +33,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         style={{ backgroundColor: COLORS.BLACK }}
       >
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

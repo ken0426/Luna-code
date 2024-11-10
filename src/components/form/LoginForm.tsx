@@ -1,11 +1,12 @@
 'use client';
 
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useContext, useEffect, useState } from 'react';
 import { UseFormRegister, useForm } from 'react-hook-form';
 
 import { useRouter } from 'next/navigation';
 
 import { createUserApi, loginUserApi } from '@/api/users';
+import { AuthContext } from '@/provider/AuthProvider';
 import {
   DEFAULT_LOGIN_VALUE,
   DEFAULT_SIGN_UP_VALUE,
@@ -16,6 +17,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import DefaultButton from '@/components/atoms/DefaultButton';
+import Loading from '@/components/atoms/Loading';
 import TextLink from '@/components/atoms/TextLink';
 import Login from '@/components/molecules/Login';
 import SignUp from '@/components/molecules/SignUp';
@@ -25,9 +27,12 @@ import style from '@/styles/login/loginArea.module.css';
 
 const LoginForm = () => {
   const router = useRouter();
+  const [showComponent, setShowComponent] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isTermsLinkClicked, setIsTermsLinkClicked] = useState(false);
+  const { user } = useContext(AuthContext);
+
   const {
     handleSubmit,
     register,
@@ -60,7 +65,16 @@ const LoginForm = () => {
     router.push('/home');
   };
 
-  return (
+  /** URL直打ちの場合でかつユーザーがログインしている場合、リダイレクト処理を行うため */
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowComponent(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  return showComponent && !user ? (
     <form onSubmit={handleSubmit(onSubmit)} className={style.loginArea}>
       {isSignUp ? (
         <SignUp
@@ -118,6 +132,8 @@ const LoginForm = () => {
         />
       </div>
     </form>
+  ) : (
+    <Loading />
   );
 };
 
