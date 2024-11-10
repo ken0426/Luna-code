@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { db } from '@/firebase';
 import { dateFormat } from '@/utils';
 import {
+  Timestamp,
   collection,
   limit,
   onSnapshot,
@@ -17,7 +18,7 @@ import Card from '@/components/molecules/Card';
 
 type Posts = {
   text: string;
-  createdAt: any;
+  createdAt: Timestamp;
   id: string;
 };
 
