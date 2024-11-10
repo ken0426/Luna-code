@@ -26,9 +26,9 @@ const MainCustomArea: FC<RNChildren> = ({ children }) => {
               ホーム
             </li>
             <Image
-              onClick={() => router.push('/settings')}
-              src={'/setting.png'}
-              alt={'setting-log'}
+              onClick={() => router.push('/home')}
+              src={'/home.png'}
+              alt={'home-log'}
               width={30}
               height={30}
               className={styles.tabletIcon}
@@ -41,9 +41,9 @@ const MainCustomArea: FC<RNChildren> = ({ children }) => {
               投稿する
             </li>
             <Image
-              onClick={() => router.push('/home')}
-              src={'/home.png'}
-              alt={'home-log'}
+              onClick={() => setIsPostModal(true)}
+              src={'/pen.png'}
+              alt={'post-log'}
               width={30}
               height={30}
               className={styles.tabletIcon}
@@ -56,9 +56,9 @@ const MainCustomArea: FC<RNChildren> = ({ children }) => {
               設定
             </li>
             <Image
-              onClick={() => setIsPostModal(true)}
-              src={'/pen.png'}
-              alt={'post-log'}
+              onClick={() => router.push('/settings')}
+              src={'/setting.png'}
+              alt={'setting-log'}
               width={30}
               height={30}
               className={styles.tabletIcon}
