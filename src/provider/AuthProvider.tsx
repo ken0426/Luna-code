@@ -8,11 +8,13 @@ import { auth, db } from '@/firebase';
 import { User } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 
+type UserProfile = {
+  userName: string;
+};
+
 type AuthState = {
   user: User | null;
-  userProfile: {
-    userName: string;
-  };
+  userProfile: UserProfile;
 };
 
 type Props = {
@@ -30,7 +32,9 @@ export const AuthContext = createContext<AuthState>(defaultValue);
 
 const AuthProvider: FC<Props> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [userProfile, setUserProfile] = useState<any>(null);
+  const [userProfile, setUserProfile] = useState<UserProfile>({
+    userName: '',
+  });
   const pathname = usePathname();
   const router = useRouter();
 

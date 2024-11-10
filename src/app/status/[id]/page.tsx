@@ -12,7 +12,7 @@ import MainCustomArea from '@/components/layout/MainCustomArea';
 
 import style from '@/styles/status/status.module.css';
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const { userProfile } = useContext(AuthContext);
   return userProfile ? (
@@ -46,4 +46,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
