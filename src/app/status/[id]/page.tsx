@@ -1,6 +1,6 @@
 'use client';
 
-import { useContext, useEffect, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 
 import { usePathname, useRouter } from 'next/navigation';
 
@@ -8,6 +8,7 @@ import { db } from '@/firebase';
 import { AuthContext } from '@/provider/AuthProvider';
 import { COLORS } from '@/styles';
 import { Posts } from '@/types';
+import { dateFormat } from '@/utils';
 import { doc, getDoc } from 'firebase/firestore';
 
 import MainCustomArea from '@/components/layout/MainCustomArea';
@@ -60,10 +61,15 @@ const Page = () => {
             {userProfile.userName}
           </p>
           <p style={{ color: COLORS.WHITE }} className={style.postText}>
-            {postDat.text}
+            {postDat.text.split('\n').map((line, index) => (
+              <Fragment key={index}>
+                {line}
+                <br />
+              </Fragment>
+            ))}
           </p>
           <p style={{ color: COLORS.WHITE }} className={style.date}>
-            投稿日：{postDat.createdAt.toDate().toLocaleDateString()}
+            投稿日：{dateFormat(postDat.createdAt.toDate(), 'YYYY-MM-DD HH:mm')}
           </p>
         </div>
       </div>

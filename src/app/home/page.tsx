@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { db } from '@/firebase';
 import { Posts } from '@/types';
 import { dateFormat } from '@/utils';
+import dayjs from 'dayjs';
 import {
   collection,
   limit,
@@ -40,9 +41,14 @@ const Page = () => {
     return () => unsubscribe();
   }, []);
 
+  const sortPost = posts.sort(
+    (a, b) =>
+      dayjs(b.createdAt.toDate()).unix() - dayjs(a.createdAt.toDate()).unix(),
+  );
+
   return (
     <MainCustomArea>
-      {posts.map((post) => (
+      {sortPost.map((post) => (
         <Card
           key={post.id}
           id={post.id}

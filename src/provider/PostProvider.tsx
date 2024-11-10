@@ -21,7 +21,7 @@ const defaultValue = {
 export const PostContext = createContext<PostState>(defaultValue);
 
 const PostProvider: FC<Props> = ({ children }) => {
-  const [isPostModal, setIsPostModal] = useState(true);
+  const [isPostModal, setIsPostModal] = useState(false);
 
   return (
     <PostContext.Provider value={{ isPostModal, setIsPostModal }}>

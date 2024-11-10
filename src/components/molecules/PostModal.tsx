@@ -1,11 +1,14 @@
 'use client';
 
 import { useContext, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
+import { createPostApi } from '@/api/post';
 import { AuthContext } from '@/provider/AuthProvider';
 import { PostContext } from '@/provider/PostProvider';
+import { PostSchemaType, postSchema } from '@/schema/post';
 import { COLORS } from '@/styles';
-import { Posts } from '@/types';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Timestamp } from 'firebase/firestore';
 import { v4 as uuid } from 'uuid';
 
@@ -14,14 +17,26 @@ import style from '@/styles/modal/postModal.module.css';
 const PostModal = () => {
   const { setIsPostModal, isPostModal } = useContext(PostContext);
   const { userProfile } = useContext(AuthContext);
+  const userId = userProfile.uid;
+
   const [text, setText] = useState<string>('');
 
-  const [postData, setPostData] = useState<Posts>({
-    text: text,
-    createdAt: Timestamp.now(),
-    id: uuid(),
-    userId: userProfile.uid,
+  const { handleSubmit, register, setValue, reset } = useForm<PostSchemaType>({
+    defaultValues: {
+      text: '',
+      createdAt: Timestamp.now(),
+      id: uuid(),
+      userId: '',
+    },
+    reValidateMode: 'onChange',
+    resolver: zodResolver(postSchema),
   });
+
+  const onSubmit = async (data: PostSchemaType) => {
+    await createPostApi(data);
+    setIsPostModal(false);
+    reset();
+  };
 
   return (
     <div
@@ -29,10 +44,15 @@ const PostModal = () => {
       style={{ display: isPostModal ? 'block' : 'none' }}
       className={style.background}
     >
-      <div
+      <form
         onClick={(e) => e.stopPropagation()}
         style={{ backgroundColor: COLORS.BLACK }}
         className={style.modal}
+        onSubmit={(e) => {
+          setValue('userId', userId);
+          e.preventDefault();
+          handleSubmit(onSubmit)();
+        }}
       >
         <header>
           <button
@@ -45,6 +65,7 @@ const PostModal = () => {
         </header>
         <div>
           <textarea
+            {...register('text')}
             placeholder={'記事を投稿'}
             className={style.textarea}
             style={{ color: COLORS.WHITE, backgroundColor: COLORS.BLACK }}
@@ -62,16 +83,17 @@ const PostModal = () => {
               {text.length}/3000
             </span>
             <button
+              type="submit"
               style={{
-                color: COLORS.WHITE,
+                color: text.length ? COLORS.WHITE : COLORS.GRAY,
               }}
-              className={style.postButton}
+              className={text.length ? style.postButton : style.disabledButton}
             >
               投稿する
             </button>
           </div>
         </footer>
-      </div>
+      </form>
     </div>
   );
 };

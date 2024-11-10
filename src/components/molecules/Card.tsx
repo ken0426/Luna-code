@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC, Fragment, useContext } from 'react';
 
 import { useRouter } from 'next/navigation';
 
@@ -34,7 +34,12 @@ const Card: FC<Props> = ({ id, text, date }) => {
         </p>
       </div>
       <p style={{ color: COLORS.WHITE }} className={style.post}>
-        {text}
+        {text.split('\n').map((line, index) => (
+          <Fragment key={index}>
+            {line}
+            <br />
+          </Fragment>
+        ))}
       </p>
     </div>
   ) : (
