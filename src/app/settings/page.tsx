@@ -5,6 +5,7 @@ import { useContext, useState } from 'react';
 import Link from 'next/link';
 
 import { AuthContext } from '@/provider/AuthProvider';
+import { PostContext } from '@/provider/PostProvider';
 import { COLORS } from '@/styles';
 
 import UserFiled from '@/components/atoms/UserFiled';
@@ -14,6 +15,7 @@ import style from '@/styles/settings/settingsList.module.css';
 
 const Page = () => {
   const [selectedList, setSelectedList] = useState<number>(0);
+  const { setIsLogoutModal } = useContext(PostContext);
   const { userProfile } = useContext(AuthContext);
 
   const settingsList = [
@@ -94,7 +96,7 @@ const Page = () => {
               <button
                 style={{ color: COLORS.WHITE, backgroundColor: COLORS.ERROR }}
                 className={style.logoutButton}
-                onClick={() => {}}
+                onClick={() => setIsLogoutModal(true)}
               >
                 ログアウト
               </button>
