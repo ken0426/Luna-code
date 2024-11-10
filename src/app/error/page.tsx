@@ -1,5 +1,11 @@
+import ErrorArea from '@/components/layout/ErrorArea';
+
 const Page = () => {
-  return <div>エラーです</div>;
+  return (
+    <ErrorArea
+      message={`エラーが発生しました。\n正しいURLか確認してください。`}
+    />
+  );
 };
 
 export default Page;

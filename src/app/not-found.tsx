@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
+import ErrorArea from '@/components/layout/ErrorArea';
+
 const NotFound = () => {
   const [showComponent, setShowComponent] = useState(false);
 
@@ -13,11 +15,7 @@ const NotFound = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  return showComponent ? (
-    <div style={{ color: 'white' }}>{'ページが存在しません'}</div>
-  ) : (
-    <></>
-  );
+  return showComponent ? <ErrorArea message={'ページが存在しません'} /> : <></>;
 };
 
 export default NotFound;
