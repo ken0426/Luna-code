@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
 import AuthProvider from '@/provider/AuthProvider';
+import PostProvider from '@/provider/PostProvider';
 import { COLORS } from '@/styles';
 
 import './globals.css';
@@ -31,9 +32,11 @@ export default function RootLayout({
     <html lang="jp">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        style={{ backgroundColor: COLORS.BLACK }}
+        style={{ backgroundColor: COLORS.BLACK, position: 'relative' }}
       >
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <PostProvider>{children}</PostProvider>
+        </AuthProvider>
       </body>
     </html>
   );

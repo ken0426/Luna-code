@@ -1,7 +1,8 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 
 import { useRouter } from 'next/navigation';
 
+import { PostContext } from '@/provider/PostProvider';
 import { COLORS } from '@/styles';
 import { RNChildren } from '@/types';
 
@@ -9,6 +10,8 @@ import styles from '../../styles/area/mainCustomArea.module.css';
 
 const MainCustomArea: FC<RNChildren> = ({ children }) => {
   const router = useRouter();
+  const { setIsPostModal } = useContext(PostContext);
+
   return (
     <div className={styles.area}>
       <header className={styles.header}>
@@ -21,7 +24,11 @@ const MainCustomArea: FC<RNChildren> = ({ children }) => {
             >
               ホーム
             </li>
-            <li style={{ color: COLORS.WHITE }} className={styles.navItem}>
+            <li
+              onClick={() => setIsPostModal(true)}
+              style={{ color: COLORS.WHITE }}
+              className={styles.navItem}
+            >
               投稿する
             </li>
             <li
