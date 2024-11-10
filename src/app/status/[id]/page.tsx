@@ -1,13 +1,15 @@
 'use client';
 
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
+import { db } from '@/firebase';
 import { AuthContext } from '@/provider/AuthProvider';
 import { COLORS } from '@/styles';
+import { Posts } from '@/types';
+import { doc, getDoc } from 'firebase/firestore';
 
-import Loading from '@/components/atoms/Loading';
 import MainCustomArea from '@/components/layout/MainCustomArea';
 
 import style from '@/styles/status/status.module.css';
@@ -15,7 +17,30 @@ import style from '@/styles/status/status.module.css';
 const Page = () => {
   const router = useRouter();
   const { userProfile } = useContext(AuthContext);
-  return userProfile ? (
+  const [postDat, setPostData] = useState<null | Posts>(null);
+  const pathname = usePathname();
+  const statusString = pathname.split('/status/')[1];
+
+  useEffect(() => {
+    const fetchPostData = async () => {
+      if (statusString) {
+        const docRef = doc(db, 'posts', statusString);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          setPostData(docSnap.data() as Posts);
+        } else {
+          router.push('/error');
+        }
+      }
+    };
+
+    fetchPostData(); // 非同期関数を呼び出す
+  }, [statusString]);
+
+  console.log(postDat);
+
+  return userProfile && postDat ? (
     <MainCustomArea>
       <div className={style.container}>
         <header style={{ color: COLORS.WHITE }} className={style.header}>
@@ -26,24 +51,24 @@ const Page = () => {
             　戻る
           </button>
 
-          <button>削除する</button>
+          {userProfile.uid === postDat.userId ? (
+            <button>削除する</button>
+          ) : null}
         </header>
         <div className={style.card}>
           <p style={{ color: COLORS.WHITE }} className={style.userName}>
             {userProfile.userName}
           </p>
           <p style={{ color: COLORS.WHITE }} className={style.postText}>
-            テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります
+            {postDat.text}
           </p>
           <p style={{ color: COLORS.WHITE }} className={style.date}>
-            投稿日：YYYY-MM-DD
+            投稿日：{postDat.createdAt.toDate().toLocaleDateString()}
           </p>
         </div>
       </div>
     </MainCustomArea>
-  ) : (
-    <Loading />
-  );
+  ) : null;
 };
 
 export default Page;

@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react';
 
 import { db } from '@/firebase';
+import { Posts } from '@/types';
 import { dateFormat } from '@/utils';
 import {
-  Timestamp,
   collection,
   limit,
   onSnapshot,
@@ -15,12 +15,6 @@ import {
 
 import MainCustomArea from '@/components/layout/MainCustomArea';
 import Card from '@/components/molecules/Card';
-
-type Posts = {
-  text: string;
-  createdAt: Timestamp;
-  id: string;
-};
 
 const Page = () => {
   const [posts, setPost] = useState<Posts[]>([]);
@@ -37,6 +31,7 @@ const Page = () => {
             text: data.text,
             createdAt: data.createdAt,
             id: doc.id,
+            userId: data.userId,
           };
         }),
       );

@@ -10,6 +10,7 @@ import { doc, getDoc } from 'firebase/firestore';
 
 type UserProfile = {
   userName: string;
+  uid: string;
 };
 
 type AuthState = {
@@ -25,6 +26,7 @@ const defaultValue = {
   user: null,
   userProfile: {
     userName: '',
+    uid: '',
   },
 };
 
@@ -34,6 +36,7 @@ const AuthProvider: FC<Props> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [userProfile, setUserProfile] = useState<UserProfile>({
     userName: '',
+    uid: '',
   });
   const pathname = usePathname();
   const router = useRouter();
@@ -49,6 +52,7 @@ const AuthProvider: FC<Props> = ({ children }) => {
           const userData = userDocSnap.data();
           setUserProfile({
             userName: userData.userName,
+            uid: userData.user_id,
           });
         }
         if (pathname === '/' || pathname === '/home') {
@@ -61,7 +65,7 @@ const AuthProvider: FC<Props> = ({ children }) => {
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [router, pathname]);
 
   return (
     <AuthContext.Provider value={{ user, userProfile }}>
