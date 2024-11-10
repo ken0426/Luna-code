@@ -11,6 +11,8 @@ import { doc, getDoc } from 'firebase/firestore';
 type UserProfile = {
   userName: string;
   uid: string;
+  email: string;
+  sex: string;
 };
 
 type AuthState = {
@@ -27,6 +29,8 @@ const defaultValue = {
   userProfile: {
     userName: '',
     uid: '',
+    email: '',
+    sex: '',
   },
 };
 
@@ -37,6 +41,8 @@ const AuthProvider: FC<Props> = ({ children }) => {
   const [userProfile, setUserProfile] = useState<UserProfile>({
     userName: '',
     uid: '',
+    email: '',
+    sex: '',
   });
   const pathname = usePathname();
   const router = useRouter();
@@ -53,6 +59,8 @@ const AuthProvider: FC<Props> = ({ children }) => {
           setUserProfile({
             userName: userData.userName,
             uid: userData.user_id,
+            email: userData.email,
+            sex: userData.sex,
           });
         }
         if (pathname === '/' || pathname === '/home') {

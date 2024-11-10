@@ -39,3 +39,8 @@ export const createUserApi = async (data: SignUpSchemaType) => {
 export const loginUserApi = async (data: LoginSchemaType) => {
   await signInWithEmailAndPassword(auth, data.email, data.password);
 };
+
+/** ログアウト */
+export const logoutUserApi = async () => {
+  await auth.signOut();
+};
