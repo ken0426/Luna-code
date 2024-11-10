@@ -16,12 +16,14 @@ import {
   query,
 } from 'firebase/firestore';
 
+import Loading from '@/components/atoms/Loading';
 import TextCenter from '@/components/atoms/TextCenter';
 import MainCustomArea from '@/components/layout/MainCustomArea';
 import Card from '@/components/molecules/Card';
 
 const Page = () => {
   const [posts, setPost] = useState<Posts[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const postsRef = collection(db, 'posts');
@@ -50,6 +52,7 @@ const Page = () => {
         (post) => post !== null,
       );
       setPost(posts);
+      setIsLoading(false);
     });
 
     return () => unsubscribe();
@@ -62,7 +65,9 @@ const Page = () => {
 
   return (
     <MainCustomArea>
-      {sortPost.length ? (
+      {isLoading ? (
+        <Loading />
+      ) : sortPost.length ? (
         sortPost.map((post) => (
           <Card
             key={post.id}
