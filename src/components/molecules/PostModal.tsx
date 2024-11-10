@@ -60,6 +60,7 @@ const PostModal = () => {
         style={{ backgroundColor: COLORS.BLACK }}
         className={style.modal}
         onSubmit={(e) => {
+          setValue('createdAt', Timestamp.now());
           setValue('userId', userId);
           e.preventDefault();
           handleSubmit(onSubmit)();
