@@ -55,7 +55,7 @@ const Page = () => {
 
   console.log(postDat);
 
-  return userProfile && postDat ? (
+  return userProfile && postDat && !!userName ? (
     <MainCustomArea>
       <div className={style.container}>
         <header style={{ color: COLORS.WHITE }} className={style.header}>
