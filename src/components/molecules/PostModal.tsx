@@ -7,6 +7,7 @@ import { PostContext } from '@/provider/PostProvider';
 import { COLORS } from '@/styles';
 import { Posts } from '@/types';
 import { Timestamp } from 'firebase/firestore';
+import { v4 as uuid } from 'uuid';
 
 import style from '@/styles/modal/postModal.module.css';
 
@@ -14,10 +15,11 @@ const PostModal = () => {
   const { setIsPostModal, isPostModal } = useContext(PostContext);
   const { userProfile } = useContext(AuthContext);
   const [text, setText] = useState<string>('');
+
   const [postData, setPostData] = useState<Posts>({
     text: text,
     createdAt: Timestamp.now(),
-    id: '',
+    id: uuid(),
     userId: userProfile.uid,
   });
 
