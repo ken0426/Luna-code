@@ -1,11 +1,14 @@
 'use client';
 
 import MainCustomArea from '@/components/layout/MainCustomArea';
+import Card from '@/components/molecules/Card';
 
 const Page = () => {
   return (
     <MainCustomArea>
-      <p style={{ color: 'white' }}>ホーム画面</p>
+      <Card />
+      <Card />
+      <Card />
     </MainCustomArea>
   );
 };

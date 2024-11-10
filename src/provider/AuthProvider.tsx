@@ -4,11 +4,15 @@ import { FC, ReactNode, createContext, useEffect, useState } from 'react';
 
 import { usePathname, useRouter } from 'next/navigation';
 
-import { auth } from '@/firebase';
+import { auth, db } from '@/firebase';
 import { User } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
 
 type AuthState = {
   user: User | null;
+  userProfile: {
+    userName: string;
+  };
 };
 
 type Props = {
@@ -17,12 +21,16 @@ type Props = {
 
 const defaultValue = {
   user: null,
+  userProfile: {
+    userName: '',
+  },
 };
 
 export const AuthContext = createContext<AuthState>(defaultValue);
 
 const AuthProvider: FC<Props> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [userProfile, setUserProfile] = useState<any>(null);
   const pathname = usePathname();
   const router = useRouter();
 
@@ -30,6 +38,15 @@ const AuthProvider: FC<Props> = ({ children }) => {
     const unsubscribe = auth.onAuthStateChanged(async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
+        const authUid = currentUser.uid;
+        const userDocRef = doc(db, 'users', authUid);
+        const userDocSnap = await getDoc(userDocRef);
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          setUserProfile({
+            userName: userData.userName,
+          });
+        }
         if (pathname === '/' || pathname === '/home') {
           router.push('/home');
         }
@@ -40,10 +57,12 @@ const AuthProvider: FC<Props> = ({ children }) => {
     });
 
     return () => unsubscribe();
-  }, [pathname, router]);
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user, userProfile }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 

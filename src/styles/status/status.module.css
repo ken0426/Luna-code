@@ -1,0 +1,51 @@
+.container {
+  padding: 15px;
+}
+
+.header {
+  font-size: 25px;
+  font-weight: bold;
+  display: flex;
+  padding-right: 20px;
+  justify-content: space-between;
+}
+
+.headerButton {
+  display: flex;
+  cursor: pointer;
+}
+
+.backArrow {
+  display: block;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+}
+
+.backArrow:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50px;
+}
+
+.card {
+  padding: 20px;
+  display: grid;
+  gap: 15px;
+}
+
+.userName {
+  color: var(--color);
+  font-weight: bold;
+  font-size: 23px;
+}
+
+.postText {
+  color: var(--color);
+  font-size: 20px;
+  line-height: 30px;
+}
+
+.date {
+  color: var(--color);
+  font-size: 15px;
+}
