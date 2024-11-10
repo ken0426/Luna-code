@@ -21,6 +21,7 @@ const Page = () => {
   const { userProfile } = useContext(AuthContext);
   const { setIsPostDeleteModal } = useContext(PostContext);
   const [postDat, setPostData] = useState<null | Posts>(null);
+  const [userName, setUserName] = useState('');
   const pathname = usePathname();
   const statusString = pathname.split('/status/')[1];
 
@@ -39,7 +40,20 @@ const Page = () => {
     };
 
     fetchPostData();
-  }, [statusString, router]);
+
+    const getUsrName = async () => {
+      if (postDat) {
+        const userRef = doc(db, 'users', postDat.userId);
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+          setUserName(userSnap.data().userName);
+        }
+      }
+    };
+    getUsrName();
+  }, [statusString, router, postDat]);
+
+  console.log(postDat);
 
   return userProfile && postDat ? (
     <MainCustomArea>
@@ -58,7 +72,7 @@ const Page = () => {
         </header>
         <div className={style.card}>
           <p style={{ color: COLORS.WHITE }} className={style.userName}>
-            {postDat.userName}
+            {userName}
           </p>
           <p style={{ color: COLORS.WHITE }} className={style.postText}>
             {postDat.text.split('\n').map((line, index) => (
