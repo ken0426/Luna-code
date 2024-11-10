@@ -15,7 +15,8 @@ import { v4 as uuid } from 'uuid';
 import style from '@/styles/modal/postModal.module.css';
 
 const PostModal = () => {
-  const { setIsPostModal, isPostModal } = useContext(PostContext);
+  const { setIsPostModal, isPostModal, setPostErrorModal } =
+    useContext(PostContext);
   const { userProfile } = useContext(AuthContext);
   const userId = userProfile.uid;
 
@@ -33,9 +34,13 @@ const PostModal = () => {
   });
 
   const onSubmit = async (data: PostSchemaType) => {
-    await createPostApi(data);
-    setIsPostModal(false);
-    reset();
+    const error = await createPostApi(data);
+    if (error) {
+      setPostErrorModal(error);
+    } else {
+      setIsPostModal(false);
+      reset();
+    }
   };
 
   const onClose = () => {

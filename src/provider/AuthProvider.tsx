@@ -18,6 +18,8 @@ type UserProfile = {
 type AuthState = {
   user: User | null;
   userProfile: UserProfile;
+  authErrorModal: null | string;
+  setAuthErrorModal: (authErrorModal: null | string) => void;
 };
 
 type Props = {
@@ -32,12 +34,15 @@ const defaultValue = {
     email: '',
     sex: '',
   },
+  authErrorModal: null,
+  setAuthErrorModal: (authErrorModal: null | string) => {},
 };
 
 export const AuthContext = createContext<AuthState>(defaultValue);
 
 const AuthProvider: FC<Props> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [authErrorModal, setAuthErrorModal] = useState<null | string>(null);
   const [userProfile, setUserProfile] = useState<UserProfile>({
     userName: '',
     uid: '',
@@ -76,7 +81,9 @@ const AuthProvider: FC<Props> = ({ children }) => {
   }, [router, pathname]);
 
   return (
-    <AuthContext.Provider value={{ user, userProfile }}>
+    <AuthContext.Provider
+      value={{ user, userProfile, authErrorModal, setAuthErrorModal }}
+    >
       {children}
     </AuthContext.Provider>
   );

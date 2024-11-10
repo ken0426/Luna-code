@@ -5,6 +5,7 @@ import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { logoutUserApi } from '@/api/users';
+import { AuthContext } from '@/provider/AuthProvider';
 import { PostContext } from '@/provider/PostProvider';
 import { COLORS } from '@/styles';
 
@@ -13,6 +14,7 @@ import style from '@/styles/modal/logoutModal.module.css';
 const LogoutModal = () => {
   const router = useRouter();
   const { setIsLogoutModal, isLogoutModal } = useContext(PostContext);
+  const { setAuthErrorModal } = useContext(AuthContext);
   return (
     <div
       onClick={() => setIsLogoutModal(false)}
@@ -24,9 +26,13 @@ const LogoutModal = () => {
         className={style.modal}
         onSubmit={async (e) => {
           e.preventDefault();
-          await logoutUserApi();
-          setIsLogoutModal(false);
-          router.push('/');
+          const error = await logoutUserApi();
+          if (error) {
+            setAuthErrorModal(error);
+          } else {
+            setIsLogoutModal(false);
+            router.push('/');
+          }
         }}
       >
         <p style={{ color: COLORS.WHITE }} className={style.text}>

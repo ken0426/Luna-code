@@ -14,7 +14,8 @@ const DeletePostModal = () => {
   const pathname = usePathname();
   const router = useRouter();
   const statusString = pathname.split('/status/')[1];
-  const { isPostDeleteModal, setIsPostDeleteModal } = useContext(PostContext);
+  const { isPostDeleteModal, setIsPostDeleteModal, setPostErrorModal } =
+    useContext(PostContext);
 
   return (
     <div
@@ -28,9 +29,13 @@ const DeletePostModal = () => {
         className={style.modal}
         onSubmit={async (e) => {
           e.preventDefault();
-          await deletePostApi(statusString);
-          setIsPostDeleteModal(false);
-          router.push('/home');
+          const error = await deletePostApi(statusString);
+          if (error) {
+            setPostErrorModal(error);
+          } else {
+            setIsPostDeleteModal(false);
+            router.push('/home');
+          }
         }}
       >
         <p style={{ color: COLORS.WHITE }} className={style.text}>

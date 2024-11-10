@@ -31,7 +31,7 @@ const LoginForm = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isTermsLinkClicked, setIsTermsLinkClicked] = useState(false);
-  const { user } = useContext(AuthContext);
+  const { user, setAuthErrorModal } = useContext(AuthContext);
 
   const {
     handleSubmit,
@@ -57,12 +57,22 @@ const LoginForm = () => {
 
   const onSubmit = async (data: SignUpSchemaType | LoginSchemaType) => {
     if (isSignUp) {
-      await createUserApi(data as SignUpSchemaType);
+      const error = await createUserApi(data as SignUpSchemaType);
+      if (error) {
+        setAuthErrorModal(error);
+      } else {
+        reset();
+        router.push('/home');
+      }
     } else {
-      await loginUserApi(data as LoginSchemaType);
+      const error = await loginUserApi(data as LoginSchemaType);
+      if (error) {
+        setAuthErrorModal(error);
+      } else {
+        reset();
+        router.push('/home');
+      }
     }
-    reset();
-    router.push('/home');
   };
 
   /** URL直打ちの場合でかつユーザーがログインしている場合、リダイレクト処理を行うため */

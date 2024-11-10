@@ -3,6 +3,7 @@
 import { FC, ReactNode, createContext, useState } from 'react';
 
 import DeletePostModal from '@/components/molecules/DeletePostModal';
+import ErrorModal from '@/components/molecules/ErrorModal';
 import LogoutModal from '@/components/molecules/LogoutModal';
 import PostModal from '@/components/molecules/PostModal';
 
@@ -17,6 +18,8 @@ type PostState = {
   setIsPostDeleteModal: (isPostDeleteModal: boolean) => void;
   isLogoutModal: boolean;
   setIsLogoutModal: (isLogoutModal: boolean) => void;
+  postErrorModal: null | string;
+  setPostErrorModal: (postErrorModal: null | string) => void;
 };
 
 const defaultValue = {
@@ -26,6 +29,8 @@ const defaultValue = {
   setIsPostDeleteModal: () => {},
   isLogoutModal: false,
   setIsLogoutModal: () => {},
+  postErrorModal: null,
+  setPostErrorModal: () => {},
 };
 
 export const PostContext = createContext<PostState>(defaultValue);
@@ -34,6 +39,7 @@ const PostProvider: FC<Props> = ({ children }) => {
   const [isPostModal, setIsPostModal] = useState(false);
   const [isPostDeleteModal, setIsPostDeleteModal] = useState(false);
   const [isLogoutModal, setIsLogoutModal] = useState(false);
+  const [postErrorModal, setPostErrorModal] = useState<null | string>(null);
 
   return (
     <PostContext.Provider
@@ -44,12 +50,15 @@ const PostProvider: FC<Props> = ({ children }) => {
         setIsPostDeleteModal,
         isLogoutModal,
         setIsLogoutModal,
+        postErrorModal,
+        setPostErrorModal,
       }}
     >
       {children}
       <PostModal />
       <DeletePostModal />
       <LogoutModal />
+      <ErrorModal />
     </PostContext.Provider>
   );
 };

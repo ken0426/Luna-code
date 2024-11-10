@@ -1,5 +1,6 @@
 import { auth, db } from '@/firebase';
 import { LoginSchemaType, SignUpSchemaType } from '@/schema/login';
+import { FirebaseError } from 'firebase/app';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -31,16 +32,34 @@ export const createUserApi = async (data: SignUpSchemaType) => {
       { merge: true },
     );
   } catch {
-    throw new Error('user作成中にエラーが発生しました。');
+    return 'アカウント作成に失敗しまいた。時間をおいて再度お試しください';
   }
 };
 
 /** ユーザーログイン */
 export const loginUserApi = async (data: LoginSchemaType) => {
-  await signInWithEmailAndPassword(auth, data.email, data.password);
+  try {
+    await signInWithEmailAndPassword(auth, data.email, data.password);
+  } catch (error: unknown) {
+    if (error instanceof FirebaseError) {
+      console.log(error.code);
+
+      if (error.code === 'auth/user-not-found') {
+        return 'メールアドレスまたはパスワードが違います';
+      } else if (error.code === 'auth/email-already-in-use') {
+        return 'このメールアドレスはすでに使用されています';
+      } else {
+        return '時間をおいて再度お試しください';
+      }
+    }
+  }
 };
 
 /** ログアウト */
 export const logoutUserApi = async () => {
-  await auth.signOut();
+  try {
+    await auth.signOut();
+  } catch {
+    return 'ログアウトに失敗しました';
+  }
 };
