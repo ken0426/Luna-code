@@ -1,8 +1,7 @@
-import { FC, Fragment, useContext } from 'react';
+import { FC, Fragment } from 'react';
 
 import { useRouter } from 'next/navigation';
 
-import { AuthContext } from '@/provider/AuthProvider';
 import { COLORS } from '@/styles';
 
 import style from '@/styles/card/card.module.css';
@@ -15,7 +14,6 @@ type Props = {
 };
 
 const Card: FC<Props> = ({ id, text, date, userName }) => {
-  const { userProfile } = useContext(AuthContext);
   const router = useRouter();
 
   return (
