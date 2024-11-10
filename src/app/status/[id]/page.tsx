@@ -2,6 +2,7 @@
 
 import { Fragment, useContext, useEffect, useState } from 'react';
 
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 
 import { db } from '@/firebase';
@@ -65,7 +66,9 @@ const Page = () => {
           </button>
 
           {userProfile.uid === postDat.userId ? (
-            <button onClick={() => setIsPostDeleteModal(true)}>削除する</button>
+            <button onClick={() => setIsPostDeleteModal(true)}>
+              <Image src={'/dust.png'} alt={'delete'} width={30} height={30} />
+            </button>
           ) : null}
         </header>
         <div className={style.card}>
