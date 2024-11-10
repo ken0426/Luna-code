@@ -53,8 +53,6 @@ const Page = () => {
     getUsrName();
   }, [statusString, router, postDat]);
 
-  console.log(postDat);
-
   return userProfile && postDat && !!userName ? (
     <MainCustomArea>
       <div className={style.container}>
